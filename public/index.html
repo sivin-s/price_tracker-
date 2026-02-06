@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Tracker</title>
+</head>
+<body>
+    <form>
+        <input type="text" name="product_url" id="url" placeholder="product_url"
+        value="https://www.amazon.in/KTM-Black-Booking-Ex-Showroom-Price/dp/B0F539PWVM/?_encoding=UTF8&pd_rd_w=jvkft&content-id=amzn1.sym.878a9fc2-f43b-4010-87f8-7134831e4967&pf_rd_p=878a9fc2-f43b-4010-87f8-7134831e4967&pf_rd_r=25JJZM06P68C1DDBCSJX&pd_rd_wg=KYada&pd_rd_r=eca8b4d3-a75c-4c2c-ad7a-1d2888d35325&ref_=pd_hp_d_btf_ls_gwc_pc_en4_"
+        >
+        <button type="submit">Search</button>
+        <div id="root"></div>
+    </form>
+    <script>
+        const url = document.querySelector('#url')
+        const form = document.querySelector('form')
+       
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault()
+            // window.location.href = `/search?url=${url.value}`
+              fetch(`http://localhost:8080/search?url=${encodeURIComponent(url.value)}`)
+              .then((res)=>{
+                loading()
+                return res.json()
+                 })
+              .then(({data})=>{
+                  console.log(data)
+                  const root = document.querySelector('#root')
+                  if(!data){
+                     root.innerHTML = "no data found"
+                      return;
+                  }
+                  if(data){
+                     root.innerHTML = ""
+                  }
+                  for(const key in data){
+                     root.innerHTML += `
+                     <p>${key} = ${new Date(data[key]) instanceof Date ? new Date(data[key]).toLocaleString() : data[key]    }</p>
+                     `
+                  }
+              })
+            //   .finally(()=>{
+            //      root.innerHTML = ""
+            //   })
+        })
+        function loading(){
+              const root = document.querySelector('#root')
+              root.innerHTML = "loading ⏱️"
+        }
+    </script>
+</body>
+</html>

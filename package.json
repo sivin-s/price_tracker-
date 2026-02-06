@@ -1,0 +1,29 @@
+{
+  "name": "price_comparison",
+  "version": "1.0.0",
+  "description": "scrapers price",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server/server.js",
+    "dev": "tsx src/server/server.ts",
+    "dev:watch": "nodemon --exec tsx src/server/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "express": "^5.2.1",
+    "got-scraping": "^4.1.3",
+    "p-queue": "^9.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.2.0",
+    "nodemon": "^3.1.11",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
